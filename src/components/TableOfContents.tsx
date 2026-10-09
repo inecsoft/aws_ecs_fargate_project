@@ -13,6 +13,23 @@ const tocItems: TocItem[] = [
   { id: 'service-b', title: 'Service-B', level: 2 },
   { id: 'testing-connectivity', title: 'Testing Connectivity', level: 2 },
   { id: 'observability', title: 'Observability', level: 1 },
+  { id: 'terraform-deployment', title: 'Deploying with Terraform', level: 1 },
+  { id: 'terraform-structure', title: 'Project Structure', level: 2 },
+  { id: 'vpc-module', title: 'Local VPC Module', level: 2 },
+  { id: 'ecs-cluster-module', title: 'ECS Cluster Module', level: 2 },
+  { id: 'ecs-service-module', title: 'ECS Service Module', level: 2 },
+  { id: 'dev-environment', title: 'Dev Environment', level: 2 },
+  { id: 'prod-environment', title: 'Prod Environment', level: 2 },
+  { id: 'env-comparison', title: 'Environment Comparison', level: 2 },
+  { id: 'deployment-commands', title: 'Deploying', level: 2 },
+  { id: 'makefile-integrations', title: 'Build & Integrations', level: 1 },
+  { id: 'project-files', title: 'Project Files', level: 2 },
+  { id: 'makefile', title: 'Makefile', level: 2 },
+  { id: 'docker-compose', title: 'Docker Compose', level: 2 },
+  { id: 'dockerfile', title: 'Dockerfile', level: 2 },
+  { id: 'cicd', title: 'CI/CD Pipeline', level: 2 },
+  { id: 'pre-commit', title: 'Pre-commit Hooks', level: 2 },
+  { id: 'quick-start', title: 'Quick Start', level: 2 },
   { id: 'wrapping-up', title: 'Wrapping Up', level: 1 },
 ];
 
@@ -22,7 +39,7 @@ export default function TableOfContents() {
       <h4 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-4">
         On This Page
       </h4>
-      <ul className="space-y-1">
+      <ul className="space-y-1 max-h-[calc(100vh-8rem)] overflow-y-auto pr-2">
         {tocItems.map((item) => (
           <li key={item.id}>
             <a

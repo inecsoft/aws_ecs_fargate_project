@@ -1,6 +1,8 @@
 import CodeBlock from './components/CodeBlock';
 import ArchitectureDiagram from './components/ArchitectureDiagram';
 import TableOfContents from './components/TableOfContents';
+import TerraformSection from './components/TerraformSection';
+import MakefileSection from './components/MakefileSection';
 
 export default function App() {
   return (
@@ -21,6 +23,8 @@ export default function App() {
               <span className="px-2 py-1 rounded bg-orange-500/10 text-orange-400 text-xs font-medium">AWS</span>
               <span className="px-2 py-1 rounded bg-cyan-500/10 text-cyan-400 text-xs font-medium">ECS</span>
               <span className="px-2 py-1 rounded bg-purple-500/10 text-purple-400 text-xs font-medium">CDK</span>
+              <span className="px-2 py-1 rounded bg-violet-500/10 text-violet-400 text-xs font-medium">Terraform</span>
+              <span className="px-2 py-1 rounded bg-green-500/10 text-green-400 text-xs font-medium">Makefile</span>
             </div>
           </div>
         </div>
@@ -32,7 +36,7 @@ export default function App() {
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-orange-500/10 rounded-full blur-3xl"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 relative">
           <div className="max-w-3xl">
-            <div className="flex items-center gap-3 mb-6">
+            <div className="flex items-center gap-3 mb-6 flex-wrap">
               <span className="px-3 py-1 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-400 text-sm font-medium">
                 Architecture
               </span>
@@ -42,6 +46,12 @@ export default function App() {
               <span className="px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-sm font-medium">
                 Containers
               </span>
+              <span className="px-3 py-1 rounded-full bg-violet-500/10 border border-violet-500/20 text-violet-400 text-sm font-medium">
+                Terraform
+              </span>
+              <span className="px-3 py-1 rounded-full bg-green-500/10 border border-green-500/20 text-green-400 text-sm font-medium">
+                DevOps
+              </span>
             </div>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6">
               <span className="bg-gradient-to-r from-orange-400 via-amber-400 to-orange-500 bg-clip-text text-transparent">
@@ -50,7 +60,7 @@ export default function App() {
               {' '}with CDK Builds Strong Service Affinity
             </h1>
             <p className="text-xl text-gray-400 leading-relaxed mb-8">
-              Explore how AWS ECS ServiceConnect with CDK delivers a simple, yet powerful service mesh experience for your containerized microservices.
+              Explore how AWS ECS ServiceConnect with CDK and Terraform delivers a simple, yet powerful service mesh experience for your containerized microservices — with multi-environment deployments.
             </p>
             <div className="flex items-center gap-4 text-sm text-gray-500">
               <div className="flex items-center gap-2">
@@ -509,10 +519,16 @@ match response {
               </p>
             </section>
 
+            {/* Terraform Deployment */}
+            <TerraformSection />
+
+            {/* Makefile & Integrations */}
+            <MakefileSection />
+
             {/* Wrapping Up */}
             <section id="wrapping-up" className="mb-16">
               <h2 className="text-3xl font-bold text-white mb-6 flex items-center gap-3">
-                <span className="w-8 h-8 rounded-lg bg-orange-500/20 flex items-center justify-center text-orange-400 text-sm font-mono">4</span>
+                <span className="w-8 h-8 rounded-lg bg-orange-500/20 flex items-center justify-center text-orange-400 text-sm font-mono">6</span>
                 Wrapping Up
               </h2>
               <p className="text-gray-300 leading-relaxed mb-6">
@@ -532,6 +548,9 @@ match response {
                     'Service discovery via AWS CloudMap with friendly DNS names',
                     'Built-in observability for inter-service communication',
                     'CDK makes configuration simple with just a few lines of code',
+                    'Terraform modules enable reusable, multi-environment infrastructure',
+                    'Local VPC module abstracts networking complexity across dev and prod',
+                    'Environment-specific tfvars allow different sizing without code duplication',
                     'Supports both EC2 and Fargate launch types',
                   ].map((item, i) => (
                     <li key={i} className="flex items-start gap-3 text-gray-300">
@@ -586,6 +605,8 @@ match response {
                 <li><span className="hover:text-orange-400 cursor-pointer transition-colors">AWS ECS</span></li>
                 <li><span className="hover:text-orange-400 cursor-pointer transition-colors">ServiceConnect</span></li>
                 <li><span className="hover:text-orange-400 cursor-pointer transition-colors">AWS CDK</span></li>
+                <li><span className="hover:text-orange-400 cursor-pointer transition-colors">Terraform</span></li>
+                <li><span className="hover:text-orange-400 cursor-pointer transition-colors">Docker</span></li>
                 <li><span className="hover:text-orange-400 cursor-pointer transition-colors">Rust</span></li>
               </ul>
             </div>
@@ -595,6 +616,7 @@ match response {
                 <li><span className="hover:text-orange-400 cursor-pointer transition-colors">GitHub Repository</span></li>
                 <li><span className="hover:text-orange-400 cursor-pointer transition-colors">AWS Documentation</span></li>
                 <li><span className="hover:text-orange-400 cursor-pointer transition-colors">CDK API Reference</span></li>
+                <li><span className="hover:text-orange-400 cursor-pointer transition-colors">Terraform AWS Provider</span></li>
                 <li><span className="hover:text-orange-400 cursor-pointer transition-colors">Envoy Proxy</span></li>
               </ul>
             </div>

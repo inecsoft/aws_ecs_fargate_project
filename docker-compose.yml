@@ -1,0 +1,89 @@
+# ==============================================================================
+# Docker Compose for Local Development
+# ==============================================================================
+# Usage:
+#   docker-compose up -d          Start all services
+#   docker-compose logs -f        Follow logs
+#   docker-compose down           Stop all services
+# ==============================================================================
+
+version: "3.9"
+
+services:
+  # ── Service A ──────────────────────────────────────────────────────────────
+  service-a:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        SERVICE_NAME: service-a
+    container_name: serviceconnect-service-a
+    environment:
+      - BIND_ADDRESS=0.0.0.0:3000
+      - RUST_LOG=debug
+    ports:
+      - "3001:3000"
+    networks:
+      - serviceconnect
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+  # ── Service B (orchestrator) ───────────────────────────────────────────────
+  service-b:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        SERVICE_NAME: service-b
+    container_name: serviceconnect-service-b
+    environment:
+      - BIND_ADDRESS=0.0.0.0:3000
+      - RUST_LOG=debug
+      - SERVICE_A_URL=http://service-a:3000
+      - SERVICE_C_URL=http://service-c:3000
+    ports:
+      - "3000:3000"
+    depends_on:
+      service-a:
+        condition: service_healthy
+      service-c:
+        condition: service_healthy
+    networks:
+      - serviceconnect
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+  # ── Service C ──────────────────────────────────────────────────────────────
+  service-c:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        SERVICE_NAME: service-c
+    container_name: serviceconnect-service-c
+    environment:
+      - BIND_ADDRESS=0.0.0.0:3000
+      - RUST_LOG=debug
+    ports:
+      - "3002:3000"
+    networks:
+      - serviceconnect
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+networks:
+  serviceconnect:
+    driver: bridge
+    name: serviceconnect-network

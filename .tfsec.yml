@@ -1,0 +1,32 @@
+# tfsec configuration
+# https://aquasecurity.github.io/tfsec/
+
+exclude:
+  - aws-vpc-no-public-ingress-sgr  # We allow self-referencing SG rules
+  - aws-vpc-no-public-egress-sgr   # We allow outbound for NAT
+
+severity: HIGH
+
+# Minimum severity to report
+minimum_severity: MEDIUM
+
+# Include passed checks in output
+include_passed: false
+
+# Ignore warnings
+exclude_paths:
+  - ".terraform"
+  - "test"
+
+# Custom checks
+custom_checks:
+  - code: CUSTOM001
+    message: "ECS tasks should use ARM64 architecture for cost efficiency"
+    severity: LOW
+    required_labels:
+      - aws_ecs_task_definition
+    check_resources:
+      action:
+        - is_present
+      property: runtime_platform.cpu_architecture
+      value: ARM64
