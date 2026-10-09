@@ -22,6 +22,14 @@ const tocItems: TocItem[] = [
   { id: 'prod-environment', title: 'Prod Environment', level: 2 },
   { id: 'env-comparison', title: 'Environment Comparison', level: 2 },
   { id: 'deployment-commands', title: 'Deploying', level: 2 },
+  { id: 'makefile-integrations', title: 'Build & Integrations', level: 1 },
+  { id: 'project-files', title: 'Project Files', level: 2 },
+  { id: 'makefile', title: 'Makefile', level: 2 },
+  { id: 'docker-compose', title: 'Docker Compose', level: 2 },
+  { id: 'dockerfile', title: 'Dockerfile', level: 2 },
+  { id: 'cicd', title: 'CI/CD Pipeline', level: 2 },
+  { id: 'pre-commit', title: 'Pre-commit Hooks', level: 2 },
+  { id: 'quick-start', title: 'Quick Start', level: 2 },
   { id: 'wrapping-up', title: 'Wrapping Up', level: 1 },
 ];
 

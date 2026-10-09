@@ -2,6 +2,7 @@ import CodeBlock from './components/CodeBlock';
 import ArchitectureDiagram from './components/ArchitectureDiagram';
 import TableOfContents from './components/TableOfContents';
 import TerraformSection from './components/TerraformSection';
+import MakefileSection from './components/MakefileSection';
 
 export default function App() {
   return (
@@ -23,6 +24,7 @@ export default function App() {
               <span className="px-2 py-1 rounded bg-cyan-500/10 text-cyan-400 text-xs font-medium">ECS</span>
               <span className="px-2 py-1 rounded bg-purple-500/10 text-purple-400 text-xs font-medium">CDK</span>
               <span className="px-2 py-1 rounded bg-violet-500/10 text-violet-400 text-xs font-medium">Terraform</span>
+              <span className="px-2 py-1 rounded bg-green-500/10 text-green-400 text-xs font-medium">Makefile</span>
             </div>
           </div>
         </div>
@@ -46,6 +48,9 @@ export default function App() {
               </span>
               <span className="px-3 py-1 rounded-full bg-violet-500/10 border border-violet-500/20 text-violet-400 text-sm font-medium">
                 Terraform
+              </span>
+              <span className="px-3 py-1 rounded-full bg-green-500/10 border border-green-500/20 text-green-400 text-sm font-medium">
+                DevOps
               </span>
             </div>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6">
@@ -517,6 +522,9 @@ match response {
             {/* Terraform Deployment */}
             <TerraformSection />
 
+            {/* Makefile & Integrations */}
+            <MakefileSection />
+
             {/* Wrapping Up */}
             <section id="wrapping-up" className="mb-16">
               <h2 className="text-3xl font-bold text-white mb-6 flex items-center gap-3">
@@ -598,6 +606,7 @@ match response {
                 <li><span className="hover:text-orange-400 cursor-pointer transition-colors">ServiceConnect</span></li>
                 <li><span className="hover:text-orange-400 cursor-pointer transition-colors">AWS CDK</span></li>
                 <li><span className="hover:text-orange-400 cursor-pointer transition-colors">Terraform</span></li>
+                <li><span className="hover:text-orange-400 cursor-pointer transition-colors">Docker</span></li>
                 <li><span className="hover:text-orange-400 cursor-pointer transition-colors">Rust</span></li>
               </ul>
             </div>
