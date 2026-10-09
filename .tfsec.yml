@@ -1,10 +1,6 @@
 # tfsec configuration
 # https://aquasecurity.github.io/tfsec/
 
-exclude:
-  - aws-vpc-no-public-ingress-sgr  # We allow self-referencing SG rules
-  - aws-vpc-no-public-egress-sgr   # We allow outbound for NAT
-
 severity: HIGH
 
 # Minimum severity to report

@@ -106,9 +106,8 @@ ENVIRONMENTS    := dev prod
 TF_DIR          := environments
 MODULES_DIR     := modules
 
-# Terraform Backend
+# Terraform Backend (Terraform 1.10+ native S3 lock files)
 TF_BACKEND_BUCKET   := terraform-state-serviceconnect
-TF_BACKEND_DYNAMODB := terraform-locks
 
 # ── Help ──────────────────────────────────────────────────────────────────
 .PHONY: help
@@ -133,25 +132,10 @@ prereq: ## 🔧 Check all prerequisites
 \t@echo "✓ All prerequisites installed!"
 
 .PHONY: setup
-setup: prereq ## 🚀 Initial setup (S3 backend + DynamoDB)
-\t@aws s3api head-bucket --bucket $(TF_BACKEND_BUCKET) 2>/dev/null || \\
-\t\t(aws s3api create-bucket \\
-\t\t\t--bucket $(TF_BACKEND_BUCKET) \\
-\t\t\t--region $(AWS_REGION) \\
-\t\t\t--create-bucket-configuration \\
-\t\t\t\tLocationConstraint=$(AWS_REGION))
-\t@aws dynamodb describe-table \\
-\t\t--table-name $(TF_BACKEND_DYNAMODB) \\
-\t\t--region $(AWS_REGION) 2>/dev/null || \\
-\t\t(aws dynamodb create-table \\
-\t\t\t--table-name $(TF_BACKEND_DYNAMODB) \\
-\t\t\t--attribute-definitions \\
-\t\t\t\tAttributeName=LockID,AttributeType=S \\
-\t\t\t--key-schema \\
-\t\t\t\tAttributeName=LockID,KeyType=HASH \\
-\t\t\t--billing-mode PAY_PER_REQUEST \\
-\t\t\t--region $(AWS_REGION))
-\t@echo "✓ Backend setup complete!"
+setup: ## 🚀 Create the S3 Terraform state backend
+\t@aws s3api create-bucket --bucket $(TF_BACKEND_BUCKET) --region $(AWS_REGION)
+\t@aws s3api put-bucket-versioning --bucket $(TF_BACKEND_BUCKET) --versioning-configuration Status=Enabled
+\t@aws s3api put-bucket-encryption --bucket $(TF_BACKEND_BUCKET) --server-side-encryption-configuration '{"Rules":[{"ApplyServerSideEncryptionByDefault":{"SSEAlgorithm":"AES256"}}]}'
 
 # ── Terraform ─────────────────────────────────────────────────────────────
 .PHONY: init
@@ -439,7 +423,7 @@ on:
     branches: [main]
 
 env:
-  TF_VERSION: "1.5.0"
+  TF_VERSION: "1.10.5"
   AWS_REGION: us-east-1
 
 permissions:

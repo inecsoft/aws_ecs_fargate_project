@@ -792,7 +792,7 @@ output "service_connect_dns" {
           code={`# environments/dev/main.tf
 
 terraform {
-  required_version = ">= 1.5.0"
+  required_version = ">= 1.10.0"
 
   required_providers {
     aws = {
@@ -804,8 +804,8 @@ terraform {
   backend "s3" {
     bucket         = "terraform-state-serviceconnect"
     key            = "dev/terraform.tfstate"
-    region         = "us-east-1"
-    dynamodb_table = "terraform-locks"
+    region         = "eu-west-1"
+    use_lockfile   = true
     encrypt        = true
   }
 }
@@ -1049,7 +1049,7 @@ output "namespace" {
           code={`# environments/prod/main.tf
 
 terraform {
-  required_version = ">= 1.5.0"
+  required_version = ">= 1.10.0"
 
   required_providers {
     aws = {
@@ -1061,8 +1061,8 @@ terraform {
   backend "s3" {
     bucket         = "terraform-state-serviceconnect"
     key            = "prod/terraform.tfstate"
-    region         = "us-east-1"
-    dynamodb_table = "terraform-locks"
+    region         = "eu-west-1"
+    use_lockfile   = true
     encrypt        = true
   }
 }

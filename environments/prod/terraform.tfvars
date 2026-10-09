@@ -1,0 +1,17 @@
+aws_region                     = "eu-west-1"
+vpc_cidr                       = "10.1.0.0/16"
+availability_zone_count        = 3
+single_nat_gateway             = false
+task_cpu                       = 1024
+task_memory                    = 2048
+desired_count                  = 3
+image_tag                      = "v1.2.3"
+image_tag_mutability           = "IMMUTABLE"
+log_retention_days             = 90
+log_level                      = "info"
+database_instance_count        = 2
+database_min_capacity          = 1
+database_max_capacity          = 8
+database_backup_retention_days = 14
+database_deletion_protection   = true
+database_skip_final_snapshot   = false
